@@ -1,3 +1,5 @@
+/Project/bin/*
+
 # Prerequisites
 *.d
 
@@ -30,3 +32,4 @@
 *.exe
 *.out
 *.app
+Project/bin/x64/Debug/Obj/OpenGLBasics.log
