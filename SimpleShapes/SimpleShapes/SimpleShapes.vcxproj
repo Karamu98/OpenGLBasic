@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)src;$(SourcePath)</SourcePath>
-    <IntDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\Obj</IntDir>
+    <IntDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\Obj\</IntDir>
     <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -60,11 +60,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)deps\glm;$(SolutionDir)deps\glfw\include;$(SolutionDir)deps\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\deps\glm;$(SolutionDir)..\deps\glfw\include;$(SolutionDir)..\deps\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)deps\glfw\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\deps\glfw\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -87,14 +87,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\deps\glad\src\glad.c" />
+    <ClCompile Include="..\..\deps\glad\src\glad.c" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Shape.cpp" />
     <ClCompile Include="..\src\Square.cpp" />
     <ClCompile Include="..\src\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\deps\glad\include\glad\glad.h" />
+    <ClInclude Include="..\..\deps\glad\include\glad\glad.h" />
     <ClInclude Include="..\include\Shape.h" />
     <ClInclude Include="..\include\Square.h" />
     <ClInclude Include="..\include\Triangle.h" />

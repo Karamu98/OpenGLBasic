@@ -34,8 +34,7 @@ Square::Square()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indiciesData), indiciesData, GL_STATIC_DRAW);
-};
-
+}
 
 void Square::Draw()
 {
