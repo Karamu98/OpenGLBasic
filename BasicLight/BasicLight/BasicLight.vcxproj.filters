@@ -16,6 +16,15 @@
     <Filter Include="GL_Includes">
       <UniqueIdentifier>{a3055d73-b45e-4000-b449-ca3baa0d096a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\RenderPrimitives">
+      <UniqueIdentifier>{a102748c-d3b2-4b7d-9295-3765dda3ee4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RenderPrimitives">
+      <UniqueIdentifier>{0a0d07bf-b00f-4642-a362-99e1379bdd1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dear ImGui">
+      <UniqueIdentifier>{4238b50f-5650-413b-a275-e04f595e2860}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -27,12 +36,6 @@
     <ClCompile Include="..\..\deps\glad\src\glad.c">
       <Filter>GL_Includes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,6 +45,30 @@
     <ClCompile Include="..\src\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Camera.cpp">
+      <Filter>Source Files\RenderPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Shader.cpp">
+      <Filter>Source Files\RenderPrimitives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\imgui\imgui.cpp">
+      <Filter>Dear ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\imgui\imgui_draw.cpp">
+      <Filter>Dear ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\imgui\imgui_impl_glfw.cpp">
+      <Filter>Dear ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Dear ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\deps\imgui\imgui_widgets.cpp">
+      <Filter>Dear ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Texture.cpp">
+      <Filter>Source Files\RenderPrimitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Shape.h">
@@ -49,12 +76,6 @@
     </ClInclude>
     <ClInclude Include="..\..\deps\glad\include\glad\glad.h">
       <Filter>GL_Includes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Camera.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Utilities.h">
       <Filter>Header Files</Filter>
@@ -64,6 +85,39 @@
     </ClInclude>
     <ClInclude Include="..\include\Cube.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Camera.h">
+      <Filter>Header Files\RenderPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Shader.h">
+      <Filter>Header Files\RenderPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Texture.h">
+      <Filter>Header Files\RenderPrimitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imconfig.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imgui.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imgui_impl_glfw.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imgui_impl_opengl3.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imgui_internal.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imstb_rectpack.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imstb_textedit.h">
+      <Filter>Dear ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\deps\imgui\include\imstb_truetype.h">
+      <Filter>Dear ImGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

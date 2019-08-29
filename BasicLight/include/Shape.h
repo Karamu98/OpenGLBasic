@@ -13,6 +13,8 @@ public:
 	void SetPosition(glm::vec3 a_newPos);
 	void Rotate(float a_angle, glm::vec3 a_axis);
 	void Scale(glm::vec3 a_newScale);
+	inline glm::vec3 GetPos() { return m_objMatrix[3]; }
+	inline glm::mat4x4* GetMatrix() { return &m_objMatrix; }
 
 protected:
 

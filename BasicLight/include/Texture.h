@@ -2,6 +2,7 @@
 #define __TEXTURE_H__
 
 #include <string>
+#include <glm/glm.hpp>
 
 class Texture
 {
@@ -13,10 +14,13 @@ public:
 
 	void Bind(unsigned int a_texID);
 	void Reload(std::string a_newPath = ""); // Recreates the texture, if supplied with a path, loads that image
+	inline unsigned int GetID() { return m_textureID; }
+	inline glm::vec2 GetSize() { return m_textureSize; }
 
 private:
 	unsigned int m_textureID;
 	std::string m_filePath;
+	glm::vec2 m_textureSize;
 };
 
 #endif

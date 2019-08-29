@@ -1,5 +1,6 @@
 #version 330
 
+uniform vec3 gLightColour;
 out vec4 FragColour;
 
 in Vertex
@@ -11,5 +12,5 @@ in Vertex
 
 void main()
 {
-    FragColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    FragColour = vec4(gLightColour, 1.0);
 }

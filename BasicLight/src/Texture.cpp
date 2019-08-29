@@ -21,6 +21,7 @@ Texture::Texture(std::string a_textPath)
 	if (data)
 	{
 		std::cout << "Loaded texture at: " << m_filePath << std::endl;
+		m_textureSize = { width, height };
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
