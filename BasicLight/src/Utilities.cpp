@@ -77,6 +77,7 @@ Shape* Utility::InitShape()
 		}
 		}
 	}
+	return nullptr;
 }
 
 std::string Utility::OpenFile(GLFWwindow* a_window, const std::string& a_filter)

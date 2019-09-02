@@ -7,45 +7,15 @@
 #include <imgui_impl_opengl3.h>
 
 #include "Utilities.h"
+#include "Window.h"
 
-Application::Application() : m_isRunning(false)
+Application::Application() : m_isRunning(false), m_window(nullptr)
 {
 }
 
 bool Application::CreateApp(const char* a_name, int a_width, int a_height, bool a_bFullscreen)
 {
-	m_window.width = a_width, m_window.height = a_height, m_window.isFullscreen = a_bFullscreen, m_window.name = a_name;
-
-	// Initialise glfw
-	if (glfwInit() != GL_TRUE)
-	{
-		std::cout << "Unable to initialize GLFW" << std::endl;
-		return false;
-	}
-
-	// Create the window with glfw
-	GLFWwindow* window = glfwCreateWindow(a_width, a_height, a_name, (a_bFullscreen ? glfwGetPrimaryMonitor() : nullptr), nullptr);
-	if (window == nullptr)
-	{
-		std::cout << "Unable to create a GLFW Window" << std::endl;
-		glfwTerminate();
-		return false;
-	}
-
-	// Set it as active
-	glfwMakeContextCurrent(window);
-
-	// Load glad
-	if (!gladLoadGL()) {
-		glfwDestroyWindow(window);
-		glfwTerminate();
-		return false;
-	}
-
-	// Print GL version to console
-	std::cout << "=====\nOpenGl:\nVendor: " << glGetString(GL_VENDOR) << "\nRenderer: " << glGetString(GL_RENDERER) << "\nVersion: " << glGetString(GL_VERSION) << "\n=====\n";
-
-	m_window.pWindow = window;
+	m_window = AppWindow::CreateWindow(a_name, a_width, a_height, a_bFullscreen);
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -72,7 +42,7 @@ bool Application::CreateApp(const char* a_name, int a_width, int a_height, bool 
 	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.15f, 0.15f, 0.15f, style.Colors[ImGuiCol_WindowBg].w);
 
 	// Setup Platform/Renderer bindings, with our main app window
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(m_window->GetNative(), true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 
 	return OnCreate();
@@ -92,6 +62,7 @@ void Application::Run(const char* a_name, int a_width, int a_height, bool a_bFul
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
+
 
 			Update(deltaTime);
 
@@ -116,10 +87,10 @@ void Application::Run(const char* a_name, int a_width, int a_height, bool a_bFul
 			}
 
 
-			glfwSwapBuffers(m_window.pWindow);
+			glfwSwapBuffers(m_window->GetNative());
 			glfwPollEvents();
 
-		} while (m_isRunning == true && glfwWindowShouldClose(m_window.pWindow) == 0);
+		} while (m_isRunning == true && m_window->ShouldClose() == 0);
 
 		Destroy();
 	}
@@ -128,6 +99,6 @@ void Application::Run(const char* a_name, int a_width, int a_height, bool a_bFul
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 
-	glfwDestroyWindow(m_window.pWindow);
+	m_window->DestroyWindow();
 	glfwTerminate();
 }

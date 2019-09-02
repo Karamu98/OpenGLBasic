@@ -108,6 +108,7 @@
     <ClCompile Include="..\src\Pyramid.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
     <ClCompile Include="..\src\Utilities.cpp" />
+    <ClCompile Include="..\src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\deps\glad\include\glad\glad.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="..\include\Pyramid.h" />
     <ClInclude Include="..\include\Texture.h" />
     <ClInclude Include="..\include\Utilities.h" />
+    <ClInclude Include="..\include\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

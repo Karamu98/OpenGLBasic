@@ -10,6 +10,7 @@ public:
 
 	void Draw(unsigned int a_program);
 	void Update(float a_deltaTime);
+	void SetProjectionMatrix(glm::mat4 a_newMat);
 	inline glm::vec3 GetPos() { return glm::vec3(m_camMatrix[3]); }
 
 private:

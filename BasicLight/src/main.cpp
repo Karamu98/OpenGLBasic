@@ -3,7 +3,7 @@
 int main()
 {	
 	Game* newGame = new Game();
-	newGame->Run("Basic Lighting", 1280, 720, false);
+	newGame->Run("Basic Lighting", 1920, 1080, false);
 
 	delete newGame;
 

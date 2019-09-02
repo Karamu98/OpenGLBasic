@@ -1,18 +1,7 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
-struct GLFWwindow;
-
-struct AppWindow
-{
-	GLFWwindow* pWindow;
-	const char* name;
-	unsigned int glVersion;
-	bool isFullscreen;
-	unsigned int width;
-	unsigned int height;
-};
-
+#include "Window.h"
 
 class Application
 {
@@ -31,7 +20,7 @@ protected:
 	virtual void Draw() = 0;
 	virtual void Destroy() = 0;
 
-	AppWindow m_window;
+	AppWindow* m_window;
 	bool m_isRunning;
 };
 

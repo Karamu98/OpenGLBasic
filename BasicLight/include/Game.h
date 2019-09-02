@@ -25,6 +25,7 @@ public:
 
 private:
 	void ImGuiDraw();
+	void ResizeFBO(float a_width, float a_height);
 private:
 	bool isWireframe;
 	float specularAmount;
@@ -32,7 +33,8 @@ private:
 
 	unsigned int defaultFBO;
 	unsigned int defaultColourTex;
-	unsigned int rbo;
+	unsigned int depthRender;
+	float fboWidth, fboHeight;
 
 	Shader* simpleShader;
 	Shader* lightShader;
