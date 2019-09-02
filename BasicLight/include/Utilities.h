@@ -1,8 +1,6 @@
 #ifndef __UTILITIES_H_
 #define __UTILITIES_H_
 
-#include <glm/glm.hpp>
-
 // Class declarations
 class GLFWwindow;
 class Shape;
@@ -23,16 +21,10 @@ public:
 	static Shape* InitShape();
 
 	// OpenGL
-	static GLFWwindow* OpenGLInit(int a_windowWidth, int a_windowHeight, const char* a_windowName, bool a_isFullscreen);
-	static void CheckGLErrors();
-
-	// ImGui
-	static void InitImGui(GLFWwindow* a_window);
-	static void ImguiRender();
+	static void GetGLErrors();
 
 private:
-
-	static const char* GetGLErrorStr(GLenum a_error);
+	static const char* GetGLErrorStr(unsigned int a_error);
 
 };
 

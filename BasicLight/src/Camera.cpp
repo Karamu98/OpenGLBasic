@@ -8,9 +8,8 @@
 Camera::Camera()
 {
 	glm::vec3 pos = glm::vec3(0, 3, 5);
-
 	m_camMatrix = glm::inverse(glm::lookAt(pos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
-	m_projMatrix = glm::perspective(glm::radians(50.0f), 1920.0f / 1080.0f, 0.1f, 5000.0f);
+	m_projMatrix = glm::perspective(glm::radians(50.0f), 1280.0f / 720.0f, 0.1f, 5000.0f);
 }
 
 void Camera::Draw(unsigned int a_program)

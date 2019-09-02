@@ -104,42 +104,7 @@ std::string Utility::OpenFile(GLFWwindow* a_window, const std::string& a_filter)
 	return std::string();
 }
 
-GLFWwindow* Utility::OpenGLInit(int a_windowWidth, int a_windowHeight, const char* a_windowName, bool a_isFullscreen)
-{
-	// Initialise glfw
-	if (glfwInit() != GL_TRUE)
-	{
-		std::cout << "Unable to initialize GLFW" << std::endl;
-		return nullptr;
-	}
-
-	// Create the window with glfw
-
-	GLFWwindow* window = glfwCreateWindow(a_windowWidth, a_windowHeight, a_windowName, (a_isFullscreen ? glfwGetPrimaryMonitor() : nullptr), nullptr);
-	if (window == nullptr)
-	{
-		std::cout << "Unable to create a GLFW Window" << std::endl;
-		glfwTerminate();
-		return nullptr;
-	}
-
-	// Set it as active
-	glfwMakeContextCurrent(window);
-
-	// Load glad
-	if (!gladLoadGL()) {
-		glfwDestroyWindow(window);
-		glfwTerminate();
-		return nullptr;
-	}
-
-	// Print GL version to console
-	std::cout << "=====\nOpenGl:\nVendor: " << glGetString(GL_VENDOR) << "\nRenderer: " << glGetString(GL_RENDERER) << "\nVersion: " << glGetString(GL_VERSION) << "\n=====\n";
-
-	return window;
-}
-
-void Utility::CheckGLErrors()
+void Utility::GetGLErrors()
 {
 	while (true)
 	{
@@ -151,59 +116,7 @@ void Utility::CheckGLErrors()
 	}
 }
 
-void Utility::InitImGui(GLFWwindow* a_window)
-{
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
-
-	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsClassic();
-
-	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
-	ImGuiStyle& style = ImGui::GetStyle();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
-		style.WindowRounding = 0.0f;
-		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-	}
-	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.15f, 0.15f, 0.15f, style.Colors[ImGuiCol_WindowBg].w);
-
-	// Setup Platform/Renderer bindings, with our main app window
-	ImGui_ImplGlfw_InitForOpenGL(a_window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
-}
-
-void Utility::ImguiRender()
-{
-	// Grab IO and make sure size is correct
-	ImGuiIO& io = ImGui::GetIO();
-
-	//io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
-
-	// Rendering
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-	// Viewports rendering
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
-		GLFWwindow* backup_current_context = glfwGetCurrentContext();
-		ImGui::UpdatePlatformWindows();
-		ImGui::RenderPlatformWindowsDefault();
-		glfwMakeContextCurrent(backup_current_context);
-	}
-}
-
-const char* Utility::GetGLErrorStr(GLenum a_error)
+const char* Utility::GetGLErrorStr(unsigned int a_error)
 {
 	switch (a_error)
 	{
