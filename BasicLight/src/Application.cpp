@@ -24,9 +24,9 @@ bool Application::CreateApp(const char* a_name, int a_width, int a_height, bool 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	//io.ConfigViewportsNoAutoMerge = true;
+	//io.ConfigViewportsNoTaskBarIcon = true;
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
@@ -39,10 +39,9 @@ bool Application::CreateApp(const char* a_name, int a_width, int a_height, bool 
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
-	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.15f, 0.15f, 0.15f, style.Colors[ImGuiCol_WindowBg].w);
 
 	// Setup Platform/Renderer bindings, with our main app window
-	ImGui_ImplGlfw_InitForOpenGL(m_window->GetNative(), true);
+	ImGui_ImplGlfw_InitForOpenGL(AppWindow::GetNative(), true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 
 	return OnCreate();
@@ -70,8 +69,7 @@ void Application::Run(const char* a_name, int a_width, int a_height, bool a_bFul
 
 			// Grab IO and make sure size is correct
 			ImGuiIO& io = ImGui::GetIO();
-
-			//io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
+			io.DisplaySize = ImVec2(AppWindow::GetWidth(), AppWindow::GetHeight());
 
 			// Rendering
 			ImGui::Render();

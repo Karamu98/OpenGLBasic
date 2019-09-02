@@ -185,15 +185,18 @@ void Game::ImGuiDraw()
 	ImGui::End();
 	ImGui::PopStyleVar();
 
-	ImGui::Begin("Properties", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
 
-	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Light");
+	ImGui::Begin("Light", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
+
+	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Properties");
 	ImGui::Separator();
 	ImGui::DragFloat3("Position", glm::value_ptr((*light->GetMatrix())[3]), 0.1f);
 	ImGui::ColorEdit3("Colour", glm::value_ptr(lightColour));
-	ImGui::NewLine();
 
-	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Material");
+	ImGui::End();
+
+	ImGui::Begin("Material", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
+	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Properties");
 	ImGui::Separator();
 	texID = (void*)(intptr_t)newTexture->GetID();
 
@@ -204,9 +207,10 @@ void Game::ImGuiDraw()
 	ImGui::SameLine();
 	ImGui::Text("Texture");
 	ImGui::DragFloat("Specularity", &specularAmount, 0.05f);
-	ImGui::NewLine();
+	ImGui::End();
 
-	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Rendering");
+	ImGui::Begin("Rendering", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
+	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Properties");
 	ImGui::Separator();
 	static bool isFullscreen = AppWindow::IsFullscreen();
 	if (ImGui::Checkbox("Toggle fullscreen", &isFullscreen))
@@ -242,6 +246,7 @@ void Game::ImGuiDraw()
 
 	ImGui::Text("Window size: %.ux%.u", AppWindow::GetWidth(), AppWindow::GetHeight());
 	ImGui::Text("Window focus: %.i", (int)AppWindow::IsFocused());
+
 	ImGui::End();
 	ImGui::End();
 }
