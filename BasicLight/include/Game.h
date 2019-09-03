@@ -49,9 +49,6 @@ private:
 	unsigned int shaderProgram, lightProgram;
 	bool screenshot;
 	glm::vec2 viewPortSize;
-
-	// Globals
-	char ssPath[128];
 };
 
 #endif
