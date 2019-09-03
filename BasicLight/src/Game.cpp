@@ -5,13 +5,16 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
 
 #include "Window.h"
 
 Game::Game() :
 	isWireframe(false),
 	specularAmount(32.0f),
-	gammaCorrection(1.8f)
+	gammaCorrection(1.8f),
+	screenshot(false)
 {
 
 }
@@ -114,6 +117,11 @@ void Game::Draw()
 	light->Draw(lightProgram);
 	lightShader->Unbind();
 
+	if (screenshot)
+	{
+		Screenshot();
+	}
+
 	ImGuiDraw();
 }
 
@@ -212,6 +220,10 @@ void Game::ImGuiDraw()
 	ImGui::Begin("Rendering", 0, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);
 	ImGui::TextColored(ImVec4(0, 1, 0, 1), "Properties");
 	ImGui::Separator();
+	if (ImGui::Button("Screenshot"))
+	{
+		screenshot = true;
+	}
 	static bool isFullscreen = AppWindow::IsFullscreen();
 	if (ImGui::Checkbox("Toggle fullscreen", &isFullscreen))
 	{
@@ -288,4 +300,37 @@ void Game::ResizeFBO(float a_width, float a_height)
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 	glViewport(0, 0, fboWidth, fboHeight);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	viewPortSize.x = a_width;
+	viewPortSize.y = a_height;
+}
+
+void Game::Screenshot()
+{
+	screenshot = false;
+
+	auto viewportSize = ImGui::GetContentRegionAvail();
+
+	int width = viewPortSize.x;
+	int height = viewPortSize.y;
+
+	int imageSize = width * height * 3;
+
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+
+	// Create buffer for images
+	char* dataBuffer = new char[imageSize];
+
+	// Grab pixels
+	glReadPixels((GLint)0, (GLint)0,
+		(GLint)width, (GLint)height,
+		GL_RGB, GL_UNSIGNED_BYTE, dataBuffer);
+
+
+	// Save to file
+	stbi_flip_vertically_on_write(true);
+	stbi_write_png("image.png", width, height, 3, (void*)dataBuffer, width * 3);
+
+	// Free resources
+	delete[] dataBuffer;
 }

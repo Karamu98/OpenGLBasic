@@ -26,6 +26,7 @@ public:
 private:
 	void ImGuiDraw();
 	void ResizeFBO(float a_width, float a_height);
+	void Screenshot();
 private:
 	bool isWireframe;
 	float specularAmount;
@@ -46,6 +47,11 @@ private:
 
 	// Cache
 	unsigned int shaderProgram, lightProgram;
+	bool screenshot;
+	glm::vec2 viewPortSize;
+
+	// Globals
+	char ssPath[128];
 };
 
 #endif
