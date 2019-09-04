@@ -1,6 +1,8 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include <memory>
+
 #include "Application.h"
 
 #include "Cube.h"
@@ -36,13 +38,13 @@ private:
 	unsigned int defaultColourTex;
 	unsigned int depthRender;
 	float fboWidth, fboHeight;
-
-	Shader* simpleShader;
-	Shader* lightShader;
-	Shape* shape;
-	Cube* light;
-	Camera* cam;
-	Texture* newTexture;
+	
+	std::shared_ptr<Shader> simpleShader;
+	std::shared_ptr<Shader> lightShader;
+	std::shared_ptr<Shape> shape;
+	std::shared_ptr<Cube> light;
+	std::shared_ptr<Camera> cam;
+	std::shared_ptr<Texture> newTexture;
 	glm::vec3 lightColour;
 
 	// Cache

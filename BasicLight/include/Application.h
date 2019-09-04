@@ -7,7 +7,7 @@ class Application
 {
 public:
 	Application();
-	virtual ~Application() {};
+	virtual ~Application() = default;
 
 	bool CreateApp(const char* a_name, int a_width, int a_height, bool a_bFullscreen);
 	void Run(const char* a_name, int a_width, int a_height, bool a_bFullscreen);

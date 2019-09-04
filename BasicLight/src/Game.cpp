@@ -62,22 +62,22 @@ bool Game::OnCreate()
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	cam = new Camera();
+	cam = std::make_shared<Camera>();
 
 	// Create the user picked shape
 	shape = Utility::InitShape();
 
 	// Setting up the shaders
-	simpleShader = new Shader("resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
-	lightShader = new Shader("resources/shaders/lightVertex.glsl", "resources/shaders/lightFragment.glsl");
+	simpleShader = Shader::CreateShader("resources/shaders/simple.glsl");
+	lightShader = Shader::CreateShader("resources/shaders/light.glsl");
 	shaderProgram = simpleShader->GetProgramID();
 	lightProgram = lightShader->GetProgramID();
 
 	// Setting up textures
-	newTexture = new Texture("resources/textures/test3.jpg");
+	newTexture = Texture::CreateTexture("resources/textures/test3.jpg");
 
 	// Setting up the light 
-	light = new Cube();
+	light = std::make_shared<Cube>();
 	light->SetPosition(glm::vec3(0, 2, -5));
 	light->Scale(glm::vec3(0.2f, 0.2f, 0.2f));
 	lightColour = glm::vec3(1, 0.5f, 1);
@@ -101,21 +101,25 @@ void Game::Draw()
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	/// DRAW
-	simpleShader->Bind();
-	simpleShader->SetVec3("gLight.pos", light->GetPos());
-	simpleShader->SetVec3("gLight.colour", lightColour);
-	simpleShader->SetFloat("gMaterial.spec", specularAmount);
-	simpleShader->SetFloat("gGamma", gammaCorrection);
-	newTexture->Bind(GL_TEXTURE0);
-	cam->Draw(shaderProgram);
-	shape->Draw(shaderProgram);
-	simpleShader->Unbind();
+	if (simpleShader->Bind())
+	{
+		simpleShader->SetVec3("gLight.pos", light->GetPos());
+		simpleShader->SetVec3("gLight.colour", lightColour);
+		simpleShader->SetFloat("gMaterial.spec", specularAmount);
+		simpleShader->SetFloat("gGamma", gammaCorrection);
+		newTexture->Bind(GL_TEXTURE0);
+		cam->Draw(shaderProgram);
+		shape->Draw(shaderProgram);
+	}
 
-	lightShader->Bind();
-	lightShader->SetVec3("gLightColour", lightColour);
-	cam->Draw(lightProgram);
-	light->Draw(lightProgram);
-	lightShader->Unbind();
+	if (lightShader->Bind())
+	{
+		lightShader->SetVec3("gLightColour", lightColour);
+		cam->Draw(lightProgram);
+		light->Draw(lightProgram);
+		lightShader->Unbind();
+	}
+
 
 	if (screenshot)
 	{
@@ -127,12 +131,6 @@ void Game::Draw()
 
 void Game::Destroy()
 {
-	delete shape;
-	delete simpleShader;
-	delete lightShader;
-	delete newTexture;
-	delete cam;
-	delete light;
 }
 
 void Game::ImGuiDraw()
@@ -210,7 +208,7 @@ void Game::ImGuiDraw()
 
 	if (ImGui::ImageButton(texID, { 80, 80 }, ImVec2(0, 1), ImVec2(1, 0)))
 	{
-		newTexture->Reload(Utility::OpenFile(m_window->GetNative()));
+		newTexture->Reload(Utility::OpenFileDialog(m_window->GetNative()));
 	}
 	ImGui::SameLine();
 	ImGui::Text("Texture");
@@ -260,6 +258,18 @@ void Game::ImGuiDraw()
 	ImGui::Text("Window focus: %.i", (int)AppWindow::IsFocused());
 
 	ImGui::End();
+
+	ImGui::Begin("Shader Reloading");
+	if (ImGui::Button("Simple Shader"))
+	{
+		simpleShader->Recompile();
+	}
+	if (ImGui::Button("Light Shader"))
+	{
+		lightShader->Recompile();
+	}
+	ImGui::End();
+
 	ImGui::End();
 }
 

@@ -16,9 +16,11 @@ public:
 	static float	GetDeltaTime();
 	static float	GetTotalTime();
 
-	static std::string OpenFile(GLFWwindow* a_window, const std::string& a_filter = "");
+	static std::string OpenFileDialog(GLFWwindow* a_window, const std::string& a_filter = "");
+	static std::shared_ptr<std::string> ReadFile(const std::string& a_file);
+	static std::string GetWorkingDir();
 
-	static Shape* InitShape();
+	static std::shared_ptr<Shape> InitShape();
 
 	// OpenGL
 	static void GetGLErrors();

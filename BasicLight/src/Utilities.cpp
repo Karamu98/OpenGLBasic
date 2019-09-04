@@ -5,6 +5,7 @@
 #include <glm/ext.hpp>
 #include <iostream>
 #include <Windows.h>
+#include <fstream>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -47,28 +48,26 @@ float Utility::GetTotalTime()
 	return s_totalTime;
 }
 
-Shape* Utility::InitShape()
+std::shared_ptr<Shape> Utility::InitShape()
 {
 	std::cout << "\n1. Pyramid\n2. Cube\n";
 
 	int option = 0;
-	bool validOption = false;
 
 	// Wait until we pick a valid option
-	while (!validOption)
+	while (true)
 	{
 		std::cin >> option;
 		switch (option)
 		{
 		case 1:
 		{
-			return new Pyramid();
+			return std::make_shared<Pyramid>();
 			break;
 		}
 		case 2:
 		{
-			return new Cube();
-			validOption = true;
+			return std::make_shared<Cube>();
 			break;
 		}
 		default:
@@ -80,7 +79,7 @@ Shape* Utility::InitShape()
 	return nullptr;
 }
 
-std::string Utility::OpenFile(GLFWwindow* a_window, const std::string& a_filter)
+std::string Utility::OpenFileDialog(GLFWwindow* a_window, const std::string& a_filter)
 {
 	OPENFILENAMEA ofn;       // common dialog box structure
 	CHAR szFile[260] = { 0 };       // if using TCHAR macros
@@ -103,6 +102,41 @@ std::string Utility::OpenFile(GLFWwindow* a_window, const std::string& a_filter)
 		return ofn.lpstrFile;
 	}
 	return std::string();
+}
+
+std::shared_ptr<std::string> Utility::ReadFile(const std::string& a_file)
+{
+	// Read in the file
+	std::shared_ptr<std::string> result = std::make_shared<std::string>();
+	std::ifstream in;
+	in.open(a_file, std::ios::in, std::ios::binary);
+	if (in.is_open())
+	{
+		// Grab the size of the file
+		in.seekg(0, std::ios::end);
+		result->resize(in.tellg());
+
+		// Seek to the beginning and read it all
+		in.seekg(0, std::ios::beg);
+		in.read(&(*result)[0], result->size());
+		in.close();
+		return result;
+	}
+	else
+	{
+		std::cout << "Couldn't open file " << a_file << std::endl;
+		return nullptr;
+	}
+}
+
+std::string Utility::GetWorkingDir()
+{
+	char path[MAX_PATH] = "";
+	GetModuleFileNameA(NULL, path, MAX_PATH);
+
+	std::string dir(path);
+	dir = dir.substr(0, dir.find_last_of("\\/"));
+	return dir + '\\';
 }
 
 void Utility::GetGLErrors()
