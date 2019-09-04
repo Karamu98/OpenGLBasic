@@ -1,11 +1,7 @@
+#include "glpch.h"
 #include "Shader.h"
 #include "glad/glad.h"
-#include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <fstream>
-#include <iostream>
-
-#include "Utilities.h"
 
 
 // If this is defined, we don't want to delete shaders to allow for easy debugging

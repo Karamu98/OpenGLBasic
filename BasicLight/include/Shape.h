@@ -1,8 +1,6 @@
 #ifndef _SHAPE_H__
 #define _SHAPE_H__
 
-#include <glm/glm.hpp>
-
 class Shape
 {
 public:

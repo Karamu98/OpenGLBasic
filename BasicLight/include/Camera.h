@@ -1,7 +1,6 @@
 #ifndef __Camera_H_
 #define __Camera_H_
 
-#include <glm/ext.hpp>
 
 class Camera
 {

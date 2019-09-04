@@ -1,7 +1,7 @@
+#include "glpch.h"
 #include "Window.h"
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
-#include <iostream>
 
 AppWindow* AppWindow::s_Instance = nullptr;
 

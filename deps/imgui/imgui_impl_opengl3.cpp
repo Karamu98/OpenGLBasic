@@ -65,6 +65,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include "glpch.h"
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>

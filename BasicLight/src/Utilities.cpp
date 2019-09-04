@@ -1,11 +1,7 @@
+#include "glpch.h"
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <stdio.h>
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
-#include <iostream>
-#include <Windows.h>
-#include <fstream>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>

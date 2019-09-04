@@ -1,7 +1,6 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include <memory>
 
 #include "Application.h"
 
@@ -9,10 +8,7 @@
 #include "Pyramid.h"
 #include "Shader.h"
 #include "Camera.h"
-#include "Utilities.h"
 #include "Texture.h"
-
-#include "glm/glm.hpp"
 
 class Game : public Application
 {

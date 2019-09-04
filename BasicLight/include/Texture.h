@@ -1,10 +1,6 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
-#include <string>
-#include <memory>
-#include <glm/glm.hpp>
-
 class Texture
 {
 public:

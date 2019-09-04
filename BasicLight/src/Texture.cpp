@@ -1,10 +1,8 @@
+#include "glpch.h"
 #include "Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include <iostream>
 #include <glad/glad.h>
-
-#include "Utilities.h"
 
 
 Texture::Texture() : m_isActive(false)

@@ -1,3 +1,4 @@
+#include "glpch.h"
 #include "Pyramid.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

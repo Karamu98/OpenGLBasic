@@ -1,7 +1,6 @@
 #ifndef __WINDOW_H__
 #define __WINDOW_H__
 
-#include <string>
 
 struct GLFWwindow;
 struct GLFWmonitor;

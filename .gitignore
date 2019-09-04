@@ -13,3 +13,5 @@
 /BasicAbstraction/bin/*
 /BasicAbstraction/.vs/*
 
+/deps/imgui/.vs/*
+/deps/glad/.vs/*

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -63,11 +63,13 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\deps\stb;$(SolutionDir)..\deps\glm;$(SolutionDir)..\deps\glfw\include;$(SolutionDir)..\deps\imgui\include;$(SolutionDir)..\deps\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLM_FORCE_SWIZZLE;GLM_FORCE_RADIANS;GLM_FORCE_PURE;GLM_ENABLE_EXPERIMENTAL;IMGUI_IMPL_OPENGL_LOADER_GLAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>glpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\deps\glfw\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\deps\glfw\lib\x64;$(SolutionDir)\bin\$(Platform)\$(Configuration)\deps\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;Glad.lib;ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy "$(SolutionDir)resources" "$(SolutionDir)\bin\$(Platform)\$(Configuration)\resources" /s /y /i /c</Command>
@@ -92,15 +94,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\deps\glad\src\glad.c" />
-    <ClCompile Include="..\..\deps\imgui\imgui.cpp" />
-    <ClCompile Include="..\..\deps\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\deps\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="..\..\deps\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\..\deps\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\Application.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\glpch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
     <ClCompile Include="..\src\Shape.cpp" />
@@ -111,18 +112,12 @@
     <ClCompile Include="..\src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\deps\glad\include\glad\glad.h" />
-    <ClInclude Include="..\..\deps\imgui\include\imconfig.h" />
-    <ClInclude Include="..\..\deps\imgui\include\imgui.h" />
     <ClInclude Include="..\..\deps\imgui\include\imgui_impl_glfw.h" />
     <ClInclude Include="..\..\deps\imgui\include\imgui_impl_opengl3.h" />
-    <ClInclude Include="..\..\deps\imgui\include\imgui_internal.h" />
-    <ClInclude Include="..\..\deps\imgui\include\imstb_rectpack.h" />
-    <ClInclude Include="..\..\deps\imgui\include\imstb_textedit.h" />
-    <ClInclude Include="..\..\deps\imgui\include\imstb_truetype.h" />
     <ClInclude Include="..\include\Application.h" />
     <ClInclude Include="..\include\Camera.h" />
     <ClInclude Include="..\include\Game.h" />
+    <ClInclude Include="..\include\glpch.h" />
     <ClInclude Include="..\include\Shader.h" />
     <ClInclude Include="..\include\Shape.h" />
     <ClInclude Include="..\include\Cube.h" />
@@ -130,6 +125,14 @@
     <ClInclude Include="..\include\Texture.h" />
     <ClInclude Include="..\include\Utilities.h" />
     <ClInclude Include="..\include\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\deps\glad\Glad\Glad.vcxproj">
+      <Project>{a39f3d04-c5ee-44db-9fa9-324e45e517be}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\deps\imgui\ImGui\ImGui.vcxproj">
+      <Project>{404d17bb-04ce-4793-8008-d941c793756a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
